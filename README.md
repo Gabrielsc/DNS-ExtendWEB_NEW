@@ -1,4 +1,4 @@
-# SITE_EXERCICIO1
+## SITE_EXERCICIO1
 
 Site desenvolvido para testar as tecnologias html, css, javascript, php e mysql.
 
