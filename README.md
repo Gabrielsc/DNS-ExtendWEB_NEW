@@ -1,12 +1,27 @@
-## SITE_EXERCICIO1
+#DNS-ExtendWEB
+Ferramenta desenvolvida como projeto para obtencão de nota na disciplina de Desenvolvimento Web no curso de Redes de Computadores - IFPB.
 
-Site desenvolvido para testar as tecnologias html, css, javascript, php e mysql.
+##Equipe
+* Kaio Moura
+* Gabriel Cavalcante
 
-### Extra
+##Objetivo
+Ferramenta web para configurar, controlar, testar e manter um servidor DNS na rede.
 
-Esta sendo utilizado ainda o framework purecss
+##Funcionalidades
+* Zonas;
+ * Adicionar, atualizar, listar e remover zonas;
+ * Configuracao de zona reversa;
+ * Importar e exportar zonas;
+* Dominios:
+ * Adicionar, remover, listar dominio;
+ * Adicionar, remover e atualizar email;
+* Testar desempenho do servidor DNS;
+* Alterar arquivos de configuracão;
 
-### Referencias
-
-* IFPB : https://github.com/ifpb/dw-2015.1
-* PURECSS : http://purecss.io
+##Tecnologias utilizadas
+* HTML
+* CSS
+* JavaScript
+* PHP
+* MySQL
