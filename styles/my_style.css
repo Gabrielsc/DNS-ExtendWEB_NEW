@@ -1,0 +1,38 @@
+.colunas {
+	width: 250px;
+}
+
+/**** BEGIN Tabela Zonas ****/
+
+table{
+	color: #505050 !important;
+}
+
+table .nome{
+	background-color: #f2d8d9; /*RED CLARO*/
+}
+
+table .ttl {
+	background-color: #bbe9c3; /*VERDE CLARO*/
+}
+
+table .classe {
+	background-color: #a6cfe1; /*AZUL CLARO*/
+} 
+
+table .type {
+	background-color: #e2bee9; /*rosa/roxo CLARO*/
+}
+
+table .registro {
+	background-color: #ece7c6; /*AMARELO CLARO*/
+} 
+
+
+
+.icons {
+	width: 20px;
+	height: 20px;
+}
+
+/**** END Tabela Zonas ****/
