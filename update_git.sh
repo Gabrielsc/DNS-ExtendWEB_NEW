@@ -1,4 +1,6 @@
 #!/bin/bash
+# @utor: Gabriel Cavalcante
+# IFPB Redes Computadores
 #
 # Script para carregar arquivos alterados para conta git
 # Funciona se o repositorio tiver sido clonado
