@@ -36,3 +36,29 @@ table .registro {
 }
 
 /**** END Tabela Zonas ****/
+
+/**** BEGIN Pagina Login ****/
+.page-login{
+	background-color: #1E1E1E;
+}
+
+.form-login{
+	margin-left: 35%;
+	margin-right: 35%;
+	margin-top: 5%;
+	/*color: black;*/
+}
+
+.form-login h2{
+	text-align: center;
+}
+
+#icon-contact{
+	border-radius: 100%;
+	background-image: url('../images/icons/contact-icon.png');
+	background-size: 120px;
+	width: 120px;
+	height: 120px;
+	margin: auto;
+}
+/**** END Pagina Login ****/
