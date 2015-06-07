@@ -17,25 +17,62 @@
 
     <!--BEGIN CONTENT-->
     <div class="page-content">
+
+        <?php
+
+            echo "Dados sessao atual: ".session_encode();
+            echo nl2br("\n\n");
+
+            echo "Command: ".$_SESSION['command'];
+            //$shell = ssh2_shell($connect_ssh, 'xterm');
+            //fwrite( $shell, 'ls -la;'.PHP_EOL);
+        ?>
         
         
-        <h3>Editando resolv.conf</h3><br>
+        <h3>Read file</h3><br>
         <form action="" method="post">
 
-            <label>NameServer: </label>
-            <input type="text" name="nameserver">
+            <label>Path file: </label>
+            <input type="text" name="way1">
             <input type="submit" name="enviar" value="Enviar">
-
+            <br><br>
             <?php
-                            
+
                 if(isset($_POST['enviar'])){
-                    $command = "echo nameserver 8.8.4.4 >> /etc/resolv.conf";
-                    $result = shell_exec($command);
-                    echo "Enviado!!";
+
+                    //Ler arquivo
+                    $way = $_POST['way1'];
+                    $data = file_get_contents($way);
+                    //echo $data;
+                    $convert = explode("\n", $data);
+                    for ($i=0;$i<count($convert);$i++) {
+                        echo nl2br("$convert[$i] \n"); //write value by index
+                    } 
                 }
+
                 
             ?>
             
+        </form>
+
+        <h3>Read file</h3><br>
+        <form action="" method="post">
+
+            <label>Path file: </label>
+            <input type="text" name="way2">
+            <input type="submit" name="enviar" value="Enviar">
+            <br><br>
+
+            <?php
+
+                $filename = $_POST['way2'];
+                //echo $filename;
+                $handle = fopen ($filename, "r");
+                $conteudo = fread ($handle, filesize ($filename));
+                fclose ($handle);
+
+            ?>
+
         </form>
         
         

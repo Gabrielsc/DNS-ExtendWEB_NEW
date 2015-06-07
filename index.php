@@ -6,6 +6,7 @@
     if(!isset($_SESSION['logado'])){
         header('Location:login.php');
     }
+    
 ?>
 
 <!DOCTYPE html>
@@ -68,7 +69,7 @@
                             <li><a href="#"><i class="fa fa-tasks"></i>My Tasks<span class="badge badge-success">7</span></a></li>
                             <li class="divider"></li>
                             <li><a href="#"><i class="fa fa-lock"></i>Lock Screen</a></li>
-                            <li><a href="Login.html"><i class="fa fa-key"></i>Log Out</a></li>
+                            <li><a href="logout.php"><i class="fa fa-key"></i>Log Out</a></li>
                         </ul>
                     </li>
                 </ul>

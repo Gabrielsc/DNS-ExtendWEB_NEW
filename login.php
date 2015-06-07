@@ -27,7 +27,6 @@
 	<link rel="stylesheet" type="text/css" href="styles/my_style.css">
 </head>
 <body class="page-login">
-
 	<div class="form-login">
 		<h2>DNS-Extend-WEB</h2><br>
 		<div class="panel panel-grey">
