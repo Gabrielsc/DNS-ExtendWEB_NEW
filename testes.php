@@ -23,9 +23,12 @@
             echo "Dados sessao atual: ".session_encode();
             echo nl2br("\n\n");
 
-            echo "Command: ".$_SESSION['command'];
-            //$shell = ssh2_shell($connect_ssh, 'xterm');
-            //fwrite( $shell, 'ls -la;'.PHP_EOL);
+            //echo nl2br("\n\n");
+            $command = shell_exec("who");
+            echo $command;
+            echo nl2br("\n\n");
+
+            
         ?>
         
         
@@ -41,12 +44,12 @@
                 if(isset($_POST['enviar'])){
 
                     //Ler arquivo
-                    $way = $_POST['way1'];
-                    $data = file_get_contents($way);
+                    $way1 = $_POST['way1'];
+                    $data = file_get_contents($way1);
                     //echo $data;
                     $convert = explode("\n", $data);
                     for ($i=0;$i<count($convert);$i++) {
-                        echo nl2br("$convert[$i] \n"); //write value by index
+                        echo nl2br("$convert[$i] \n"); 
                     } 
                 }
 
@@ -55,22 +58,45 @@
             
         </form>
 
-        <h3>Read file</h3><br>
+        <h3>Write file</h3><br>
         <form action="" method="post">
 
             <label>Path file: </label>
-            <input type="text" name="way2">
+            <input type="text" name="way3">
+            <label>String: </label>
+            <input type="text" name="string">
             <input type="submit" name="enviar" value="Enviar">
             <br><br>
 
             <?php
+                //$way1 = $_POST['way2'];
+                //$string = $_POST['string'];
+                /*
+                if(isset($_POST['enviar'])){
+                    $way2 = $_POST['way2'];
+                    $string = $_POST['string'];
+                    file_put_contents("teste1", $string);
+                    echo file_get_contents("teste1");
+                }*/
 
-                $filename = $_POST['way2'];
-                //echo $filename;
-                $handle = fopen ($filename, "r");
-                $conteudo = fread ($handle, filesize ($filename));
-                fclose ($handle);
+                if(isset($_POST['enviar'])){
 
+                    //escrevendo
+                    $way3 = $_POST['way3'];
+                    $string = $_POST['string'];
+                    file_put_contents($way3, "$string \n", FILE_APPEND);
+
+                    //$fp = fopen($way3, "a");
+                    //$escreve = fwrite($fp, "exemplo de escrita");
+                    //fclose($fp);
+
+                    //lendo
+                    $data = file_get_contents($way3);
+                    echo $data;
+                }
+
+                
+                    
             ?>
 
         </form>
