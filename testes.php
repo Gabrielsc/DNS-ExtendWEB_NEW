@@ -25,6 +25,7 @@
 
         <?php
 
+<<<<<<< HEAD
             echo "";
             $connect_ssh = ssh2_connect('192.168.0.109', 22);
             ssh2_auth_password($connect_ssh, 'root', 'adminuser');
@@ -32,8 +33,27 @@
 
 
             //echo nl2br("\n\n");
+=======
+            // FUNCIONA!!!
+            //$connect_ssh = ssh2_connect('10.0.135.236', 22);
+            //ssh2_auth_password($connect_ssh, "root", "adminuser");
+            //$return = ssh2_exec($connect_ssh, 'echo teste >> /etc/resolv.conf');
+            ///////////////////////////
+
+            $home = "/home/vagrant";
+            $connect_ssh = ssh2_connect('10.0.135.236', 22);
+            ssh2_auth_password($connect_ssh, "root", "adminuser");
+            $return = ssh2_exec($connect_ssh, "echo teste >> $home/arq");
+
+            //echo "Dados sessao atual: ".session_encode();
+            //echo nl2br("\n\n");
+            //echo nl2br("\n\n");
+            //$command = shell_exec("who");
+            //echo $command;
+            //echo nl2br("\n\n");
+
+>>>>>>> eab8e16efa7b5bbb4f113ee6852e65e79f5b6370
         ?>
-        
         
         <h3>Read file</h3><br>
         <form action="" method="post">
@@ -42,21 +62,12 @@
             <input type="text" name="way1">
             <input type="submit" name="enviar" value="Enviar">
             <br><br>
-            <?php
-
+            
+            <?php //Ler arquivo
                 if(isset($_POST['enviar'])){
-
-                    //Ler arquivo
                     $way1 = $_POST['way1'];
-                    $data = file_get_contents($way1);
-                    //echo $data;
-                    $convert = explode("\n", $data);
-                    for ($i=0;$i<count($convert);$i++) {
-                        echo nl2br("$convert[$i] \n"); 
-                    } 
+                    read_file($way1);
                 }
-
-                
             ?>
             
         </form>
