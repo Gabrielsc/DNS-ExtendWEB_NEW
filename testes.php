@@ -1,3 +1,8 @@
+<?php
+    // Importando codigos PHP!!
+    include 'functions.php';
+?>
+
 <div id="page-wrapper">
     <!--BEGIN TITLE & BREADCRUMB PAGE-->
     <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
@@ -20,15 +25,13 @@
 
         <?php
 
-            echo "Dados sessao atual: ".session_encode();
-            echo nl2br("\n\n");
+            echo "";
+            $connect_ssh = ssh2_connect('192.168.0.109', 22);
+            ssh2_auth_password($connect_ssh, 'root', 'adminuser');
+            $return = ssh2_exec($connect_ssh, "echo testeeee >> /etc/resolv.conf");
+
 
             //echo nl2br("\n\n");
-            $command = shell_exec("who");
-            echo $command;
-            echo nl2br("\n\n");
-
-            
         ?>
         
         
