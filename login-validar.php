@@ -1,7 +1,14 @@
 <?php
 
 	session_start();
-	$connect_ssh = ssh2_connect('10.0.135.236', 22);
+
+
+	//$conect_mysql = mysql_connect('192.168.0.160', $_POST['login'], $_POST['senha']) or print (mysql_error()); 
+	//print "Conexão OK!";
+	//mysql_close($conect_mysql); 
+
+
+	$connect_ssh = ssh2_connect('192.168.0.109', 22);
 	if(ssh2_auth_password($connect_ssh, $_POST['login'], $_POST['senha'])){
 		$_SESSION['logado'] = true;
 		$_SESSION['login'] = $_POST['login'];

@@ -1,6 +1,11 @@
 <?php
     // Importando codigos PHP!!
     include 'functions.php';
+    include "Zona.php";
+
+    $connect_ssh = ssh2_connect('192.168.0.109', 22);
+    ssh2_auth_password($connect_ssh, "root", "adminuser");
+    
 ?>
 
 <div id="page-wrapper">
@@ -22,52 +27,27 @@
 
     <!--BEGIN CONTENT-->
     <div class="page-content">
-
-        <?php
-
-<<<<<<< HEAD
-            echo "";
-            $connect_ssh = ssh2_connect('192.168.0.109', 22);
-            ssh2_auth_password($connect_ssh, 'root', 'adminuser');
-            $return = ssh2_exec($connect_ssh, "echo testeeee >> /etc/resolv.conf");
-
-
-            //echo nl2br("\n\n");
-=======
-            // FUNCIONA!!!
-            //$connect_ssh = ssh2_connect('10.0.135.236', 22);
-            //ssh2_auth_password($connect_ssh, "root", "adminuser");
-            //$return = ssh2_exec($connect_ssh, 'echo teste >> /etc/resolv.conf');
-            ///////////////////////////
-
-            $home = "/home/vagrant";
-            $connect_ssh = ssh2_connect('10.0.135.236', 22);
-            ssh2_auth_password($connect_ssh, "root", "adminuser");
-            $return = ssh2_exec($connect_ssh, "echo teste >> $home/arq");
-
-            //echo "Dados sessao atual: ".session_encode();
-            //echo nl2br("\n\n");
-            //echo nl2br("\n\n");
-            //$command = shell_exec("who");
-            //echo $command;
-            //echo nl2br("\n\n");
-
->>>>>>> eab8e16efa7b5bbb4f113ee6852e65e79f5b6370
-        ?>
         
-        <h3>Read file</h3><br>
+        <h3>Adicionar Domain</h3><br>
         <form action="" method="post">
 
-            <label>Path file: </label>
-            <input type="text" name="way1">
+            <label>Dados: </label>
+            <input type="text" name="domain">
+            <input type="text" name="type">
             <input type="submit" name="enviar" value="Enviar">
             <br><br>
             
             <?php //Ler arquivo
+
                 if(isset($_POST['enviar'])){
-                    $way1 = $_POST['way1'];
-                    read_file($way1);
+                    $objeto = new Zona($_POST['domain'], $_POST['type']);
+                    $returno = $objeto->add($connect_ssh);
+
+                    if($returno){
+                        echo "Tudo certo!! :)";
+                    }
                 }
+
             ?>
             
         </form>
@@ -109,12 +89,10 @@
                     echo $data;
                 }
 
-                
                     
             ?>
 
         </form>
-        
         
         
     </div>
