@@ -63,15 +63,6 @@
             <br><br>
 
             <?php
-                //$way1 = $_POST['way2'];
-                //$string = $_POST['string'];
-                /*
-                if(isset($_POST['enviar'])){
-                    $way2 = $_POST['way2'];
-                    $string = $_POST['string'];
-                    file_put_contents("teste1", $string);
-                    echo file_get_contents("teste1");
-                }*/
 
                 if(isset($_POST['enviar'])){
 
@@ -79,10 +70,6 @@
                     $way3 = $_POST['way3'];
                     $string = $_POST['string'];
                     file_put_contents($way3, "$string \n", FILE_APPEND);
-
-                    //$fp = fopen($way3, "a");
-                    //$escreve = fwrite($fp, "exemplo de escrita");
-                    //fclose($fp);
 
                     //lendo
                     $data = file_get_contents($way3);

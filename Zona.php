@@ -32,23 +32,23 @@
 
 			// Copiando arquivo do server remote
 			if(!ssh2_scp_recv($conection, $remote_file, $local_file)){
-	            return false;
-	        }
+				return false;
+			}
 
-	        /////////////////////////////////////////////
-	        // Abrindo, escrevendo e fechando arquivo...
-	        $file = fopen($local_file, 'a');
-	        //fwrite($file, $text);
-	        fwrite($file, "zone $this->domain {\n");
-	        fwrite($file, "\ttype $this->type;\n");
-	        fwrite($file, "\tfile /etc/bind/db.$this->domain;\n");
-	        fwrite($file, "}\n");
-	        fclose($file);
-	        /////////////////////////////////////////////
+			/////////////////////////////////////////////
+			// Abrindo, escrevendo e fechando arquivo...
+			$file = fopen($local_file, 'a');
+			//fwrite($file, $text);
+			fwrite($file, "zone $this->domain {\n");
+			fwrite($file, "\ttype $this->type;\n");
+			fwrite($file, "\tfile /etc/bind/db.$this->domain;\n");
+			fwrite($file, "}\n");
+			fclose($file);
+			/////////////////////////////////////////////
 
-	        // Copiando arquivo alterado para server remote
-	        // Retornado false se nao copiou
-	        return ssh2_scp_send($conection, $local_file, $remote_file);
+			// Copiando arquivo alterado para server remote
+			// Retornado false se nao copiou
+			return ssh2_scp_send($conection, $local_file, $remote_file);
 		}
 
 
