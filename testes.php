@@ -1,10 +1,13 @@
 <?php
     // Importando codigos PHP!!
     include 'functions.php';
-    include "Zona.php";
+    include "ZonaClass.php";
 
+    /////////////////////////////////////////////////////////////
+    // ABRI CONEXAO COM SERVIDOR DNS !!!
     $connect_ssh = ssh2_connect('192.168.0.109', 22);
     ssh2_auth_password($connect_ssh, "root", "adminuser");
+    /////////////////////////////////////////////////////////////
     
 ?>
 
@@ -27,30 +30,39 @@
 
     <!--BEGIN CONTENT-->
     <div class="page-content">
+
+
+        
         
         <h3>Adicionar Domain</h3><br>
         <form action="" method="post">
 
-            <label>Dados: </label>
+            <label>Dominio: </label>
             <input type="text" name="domain">
+            <label>Type: </label>
             <input type="text" name="type">
             <input type="submit" name="enviar" value="Enviar">
             <br><br>
             
-            <?php //Ler arquivo
+            <?php // ADDICIONA ZONA, COM DADOS PASSADOS...
 
                 if(isset($_POST['enviar'])){
                     $objeto = new Zona($_POST['domain'], $_POST['type']);
                     $returno = $objeto->add($connect_ssh);
-
                     if($returno){
                         echo "Tudo certo!! :)";
+                    }else{
+                        echo "Algo deu errado!! :(";
                     }
+                    $objeto->getZonas();
                 }
 
             ?>
             
         </form>
+
+
+
 
         <h3>Write file</h3><br>
         <form action="" method="post">
