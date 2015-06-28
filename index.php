@@ -7,6 +7,13 @@
         header('Location:login.php');
     }
     
+    // Importando codigos PHP!!
+    include 'functions.php';
+    include "ZonaClass.php";
+
+    $connect_ssh = ssh2_connect('192.168.0.109', 22);
+    ssh2_auth_password($connect_ssh, "root", "adminuser");
+
 ?>
 
 <!DOCTYPE html>

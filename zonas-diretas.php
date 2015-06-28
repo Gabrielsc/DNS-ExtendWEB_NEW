@@ -1,10 +1,10 @@
 <?php
     // Importando codigos PHP!!
-    include 'functions.php';
-    include "ZonaClass.php";
+    //include 'functions.php';
+    //include "ZonaClass.php";
 
-    $connect_ssh = ssh2_connect('192.168.0.109', 22);
-    ssh2_auth_password($connect_ssh, "root", "adminuser");
+    //$connect_ssh = ssh2_connect('192.168.0.109', 22);
+    //ssh2_auth_password($connect_ssh, "root", "adminuser");
     
 ?>
 
@@ -53,18 +53,20 @@
                     <!-- ABA ADICIONAR DO CONTEUDO -->
                     <div id="adicionar-tab" class="tab-pane fade in active">
                         <div class="row">
+                            <form action="" method="post">
 
                             <!-- First Columm First Tab-->
                             <div class="col-lg-6">
+
                                 <h3>Basic Setting</h3><br>
                                 <!-- Begin Campo Dominio -->
                                 <div class="form-group">
-                                    <input id="inputNameDominio" type="text" placeholder="Nome Dominio" class="form-control"/>
+                                    <input name="inputNameDominio" type="text" placeholder="Nome Dominio" class="form-control"/>
                                 </div>
                                 <!-- End Campo Dominio -->
                                 
                                 <div class="form-group">
-                                    <select class="form-control" id="type">
+                                    <select class="form-control" name="type">
                                         <option value="master">master</option>
                                         <option value="slave">slave</option>
                                     </select>
@@ -80,14 +82,14 @@
                                 <!-- End Select File -->
 
                                 <br>
-                                <button type="submit" class="btn btn-primary">Adicionar</button>
+                                <button type="submit" class="btn btn-primary" name="enviarZona">Adicionar</button>
 
                             </div>
 
                             <div class="col-lg-6">
                                 <h3>Advanced Setting</h3><br>
                                 <div class="form-group">
-                                    <input id="inputIp" type="text" placeholder="IP master or slave" class="form-control" size="2"/>
+                                    <input name="inputIp" type="text" placeholder="IP master or slave" class="form-control" size="2"/>
                                 </div>
 
                                 <div class="form-group mbn">
@@ -99,7 +101,28 @@
                                 </div>
                             </div>
 
-                        </div>
+                            
+
+                            </form>
+                        </div><br>
+
+                        <?php // ADDICIONA ZONA, COM DADOS PASSADOS....
+
+                            if(isset($_POST['enviarZona'])){
+                                $objeto = new Zona($_POST['inputNameDominio'], $_POST['type']);
+                                $returno = $objeto->add($connect_ssh);
+                                if($returno){
+                                    echo "Tudo certo!! :)   ";
+                                    $objeto->getZonas();
+                                }else{
+                                    echo "Algo deu errado!! :(";
+                                }
+                                
+                            }
+                            $_POST['enviarZona'] = false;
+
+                        ?>
+
                     </div>
                     <!-- END -->
                     
@@ -107,9 +130,13 @@
                     <div id="note-tab" class="tab-pane fade">
                         <div class="row">
                             <div class="col-lg-12">
+
+                                <form action="" method="post">
+
                                 <h3>Pesquisar:</h3><br>
                                 <div class="col-lg-6">
-                                    <input id="nomePesquisa" type="text" placeholder="Nome" class="form-control"/>
+                                    <input name="domainPesquisar" type="text" placeholder="Nome" class="form-control"/>
+                                    <input name="host" type="text" placeholder="Host" class="form-control"/>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
@@ -117,7 +144,7 @@
                                             Type:</label>
                                         <div class="col-md-9">
                                             <div class="input-icon right">
-                                                <select class="form-control" id="type">
+                                                <select class="form-control" name="type">
                                                     <option value="a">A</option>
                                                     <option value="cname">CNAME</option>
                                                     <option value="ns">NS</option>
@@ -127,9 +154,57 @@
                                     </div>
                                 </div>
 
-                                <br><br><br>
-                                <button type="submit" class="btn btn-primary">Pesquisar</button>
+                                <br><br><br><br>
+                                <button type="submit" class="btn btn-primary" name="pesquisar">Search</button>
+
+                                </form>
+
                                 
+                                <br><br>
+
+                                
+
+                                <?php
+
+                                    if(isset($_POST['pesquisar'])){
+                                        $domain = $_POST['domainPesquisar'];
+                                        $type = $_POST['type']; //nao utilizando no momento..
+                                        $objeto = new Zona($domain, $type);
+                                        $array_pesquisa = $objeto->pesquisaZona($connect_ssh, $domain);
+                                        if(!$array_pesquisa){
+                                            echo "Algo errado :( !!";
+                                        }else{
+                                ?>
+
+                                            <table class="table table-hover table-bordered">
+                                                <tr>
+                                                    <td>Type</td>
+                                                    <td>File</td>
+                                                    <td>Editar</td>
+                                                    <td>Excluir</td>
+                                                </tr>
+                                                <tr>
+                                                    
+                                                    <?php for($i=0; $i < count($array_pesquisa); $i++){   ?>      
+                                                            <td class="type"> <?php  echo $array_pesquisa[$i];  ?>  </td>
+                                                    <?php } ?>
+
+                                                    <td><a href=""></a><img src="images/conf.png" class="icons"></a></td>
+                                                    <td><a href=""></a><img src="images/del.png" class="icons"></a></td>
+                                                </tr>
+                                            </table>
+
+                                <?php
+                                        }
+                                    }
+                                    $_POST['pesquisar'] = false;
+
+                                ?>
+
+                                
+
+
+
                                 <!-- Table mostrando todos os dados -->
                                 <br><br>
                                 <h3>Dados de zonas diretas:</h3><br>

@@ -44,7 +44,7 @@
             <input type="submit" name="enviar" value="Enviar">
             <br><br>
             
-            <?php // ADDICIONA ZONA, COM DADOS PASSADOS...
+            <?php // ADDICIONA ZONA, COM DADOS PASSADOS....
 
                 if(isset($_POST['enviar'])){
                     $objeto = new Zona($_POST['domain'], $_POST['type']);
