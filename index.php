@@ -11,8 +11,10 @@
     include 'functions.php';
     include "ZonaClass.php";
 
-    $connect_ssh = ssh2_connect('192.168.0.109', 22);
-    ssh2_auth_password($connect_ssh, "root", "adminuser");
+    //$connect_ssh = ssh2_connect('10.0.4.179', 22);
+    //if(ssh2_auth_password($connect_ssh, "root", "adminuser")){
+    //    echo "Sucesso conection ssh";
+   // }
 
 ?>
 

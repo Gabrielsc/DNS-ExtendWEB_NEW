@@ -8,17 +8,13 @@
 		public $type;
 		//public $file_name="db";
 
-		//Contrutor passa 0 paramentros
-		function __contruct0(){
-		}
 
-		//Contrutor passa 1 paramentros
-		function __contruct1($domain){
-			$this->domain = $domain;
-		}
+
+
 		
 		//Contrutor passa 2 paramentros
-		function __construct2($domain, $type){
+		public function __construct($domain, $type=NULL){
+			echo $domain, $type;
 			$this->domain = $domain;
 			$this->type = $type;
 		}
@@ -35,6 +31,7 @@
 
 			// Copiando arquivo do server remote
 			if(!ssh2_scp_recv($conection, $remote_file, $local_file)){
+				//echo "nao copiou..";
 				return false;
 			}
 
@@ -123,7 +120,6 @@
 			$array = array('0' => $type[1], '1' => $file[1]);
 
 			return $array;
-
 		}
 
 		// Pesquisa no arquivo da zona que se deseja verificar os hosts cadastrados

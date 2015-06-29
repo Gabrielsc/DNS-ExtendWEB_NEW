@@ -3,8 +3,12 @@
     //include 'functions.php';
     //include "ZonaClass.php";
 
-    //$connect_ssh = ssh2_connect('192.168.0.109', 22);
-    //ssh2_auth_password($connect_ssh, "root", "adminuser");
+    $connect_ssh = ssh2_connect('10.0.4.179', 22);
+    // session_start();
+    // $connect_ssh = $_SESSION['connection'];
+    if(ssh2_auth_password($connect_ssh, "root", "adminuser")){
+        $retorno_ssh = "Sucesso conection ssh";
+    }
     
 ?>
 
@@ -107,7 +111,7 @@
                         </div><br>
 
                         <?php // ADDICIONA ZONA, COM DADOS PASSADOS....
-
+                            // print_r($_POST);
                             if(isset($_POST['enviarZona'])){
                                 $objeto = new Zona($_POST['inputNameDominio'], $_POST['type']);
                                 $returno = $objeto->add($connect_ssh);
@@ -115,6 +119,7 @@
                                     echo "Tudo certo!! :)   ";
                                     $objeto->getZonas();
                                 }else{
+                                    echo $retorno_ssh."<br>";
                                     echo "Algo deu errado!! :(";
                                 }
                                 
