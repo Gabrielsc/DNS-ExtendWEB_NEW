@@ -139,7 +139,7 @@
 
                                 </form>
 
-                                <br><br>                             
+                                <br>                             
 
                                 <?php
 
@@ -160,6 +160,7 @@
                                             echo "Nada encontrado !!";
                                         }else{
                                 ?>
+                                            <h3>Zona direta:</h3><br>
 
                                             <table class="table table-hover table-bordered">
                                                 <tr>
@@ -180,25 +181,26 @@
                                             </table>
 
                                             <?php
-                                                // Recebe um array
-                                                $dados_zona = $obj_zona_find->getDadosZona($connect_ssh, $domain);
+                                                // Recebe o array com os registros de recursos
+                                                $dados_zona = $obj_zona_find->getRRDominio($connect_ssh, $domain);
 
                                                 if (!$dados_zona) {
-                                                    echo "Não encontrado arquivo de dados do dominio informado!! ";
+                                                    echo "Não encontrado arquivo de Registro de Recurso de domínio!! ";
                                                 }else{
-                                                    print_r($dados_zona);
+                                                    // Para visualiza o array descomente linha abaixo...
+                                                    //print_r($dados_zona);
                                             ?>
                                                     <!-- Table mostrando todos os dados da Zona-->
                                                     <br>
-                                                    <h3>Dados da zona direta:</h3><br>
+                                                    <h3>Registros de Recursos do domínio:</h3><br>
 
                                                     <table class="table table-hover table-bordered"> 
                                                         <thead>
                                                         <tr>
-                                                            <th>#</th>
                                                             <th>Nome</th>
-                                                            <th>TTL</th>
                                                             <th>Class</th>
+                                                            <th>Type</th>
+                                                            <th>Data</th>
                                                             <th>Editar</th>
                                                             <th>Excluir</th>
                                                         </tr>

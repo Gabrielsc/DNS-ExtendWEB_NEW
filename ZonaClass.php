@@ -58,8 +58,8 @@
 
 		}
 
-		//OK!
-		public function getDadosZona($conection, $domain){
+		//Registros de Recursos Dominio - Hosts cadastrados no dominio
+		public function getRRDominio($conection, $domain){
 			// Retornar uma matriz em que cada linha representa uma linha
 			// do arquivo de dados da zona, cada indice dessa linha contem os dados da linha...
 			// Ex.:
