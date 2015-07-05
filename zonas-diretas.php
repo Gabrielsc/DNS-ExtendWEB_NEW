@@ -1,16 +1,31 @@
 <?php
-    // Importando codigos PHP!!
-    //include 'functions.php';
-    //include "ZonaClass.php";
 
-    $connect_ssh = ssh2_connect('10.0.4.179', 22);
-    // session_start();
-    // $connect_ssh = $_SESSION['connection'];
-    if(ssh2_auth_password($connect_ssh, "root", "adminuser")){
-        $retorno_ssh = "Sucesso conection ssh";
-    }
-    
+    // Em teste a linha abaixo não foi precisa pois eh feita em index.html
+    //session_start(); 
+    //$connect_ssh = $_SESSION['connection'];
+
+
+    // Codigo abaixo sera executado quando clickar em "adicionar"
+    if(isset($_POST['enviarZona'])){
+        $objeto = new Zona($_POST['inputNameDominio'], $_POST['type']);
+        $retorno = $objeto->add($connect_ssh);
+        if($retorno){ //Executa se Adicionou com sucesso...
+
+?>          <script type="text/javascript">
+                alert(" <?php echo 'Zona adicionada com sucesso!! '; ?> ");
+            </script>
+<?php
+        }else{
+
+?>          <script type="text/javascript">
+                alert(" <?php echo 'Erro ao adicionar Zona :('; ?> ");
+            </script>
+<?php
+        }
+    } 
 ?>
+
+
 
 <div id="page-wrapper">
     <!--BEGIN TITLE & BREADCRUMB PAGE-->
@@ -105,28 +120,12 @@
                                 </div>
                             </div>
 
-                            
-
                             </form>
+
                         </div><br>
 
-                        <?php // ADDICIONA ZONA, COM DADOS PASSADOS....
-                            // print_r($_POST);
-                            if(isset($_POST['enviarZona'])){
-                                $objeto = new Zona($_POST['inputNameDominio'], $_POST['type']);
-                                $returno = $objeto->add($connect_ssh);
-                                if($returno){
-                                    echo "Tudo certo!! :)   ";
-                                    $objeto->getZonas();
-                                }else{
-                                    echo $retorno_ssh."<br>";
-                                    echo "Algo deu errado!! :(";
-                                }
-                                
-                            }
-                            $_POST['enviarZona'] = false;
-
-                        ?>
+                        
+                        
 
                     </div>
                     <!-- END -->

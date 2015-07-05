@@ -7,14 +7,16 @@
         header('Location:login.php');
     }
     
+    // Sessão aberta e utiliza pela var.:  $_SESSION['connection']
+    $connect_ssh = ssh2_connect($_SESSION['ipserver'], 22);
+    if(ssh2_auth_password($connect_ssh, $_SESSION['login'], $_SESSION['senha'])){
+        $_SESSION['connection'] = $connect_ssh;
+    }
+    
     // Importando codigos PHP!!
     include 'functions.php';
     include "ZonaClass.php";
 
-    //$connect_ssh = ssh2_connect('10.0.4.179', 22);
-    //if(ssh2_auth_password($connect_ssh, "root", "adminuser")){
-    //    echo "Sucesso conection ssh";
-   // }
 
 ?>
 

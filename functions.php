@@ -41,3 +41,9 @@
 	//}
 
 ?>
+
+<!--
+?>  <script type="text/javascript">
+        alert(" <?php echo 'Erro via ssh...'; ?> ");
+    </script>
+<?php

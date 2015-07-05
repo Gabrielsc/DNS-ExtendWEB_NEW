@@ -4,7 +4,7 @@
     include "ZonaClass.php";
 
     /////////////////////////////////////////////////////////////
-    // ABRI CONEXAO COM SERVIDOR DNS !!!
+    // ABRI CONEXAO COM SERVIDOR DNS !!!!
     $connect_ssh = ssh2_connect('192.168.0.109', 22);
     ssh2_auth_password($connect_ssh, "root", "adminuser");
     /////////////////////////////////////////////////////////////

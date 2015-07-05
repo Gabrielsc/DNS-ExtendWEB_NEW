@@ -6,15 +6,9 @@
 
 		public $domain;
 		public $type;
-		//public $file_name="db";
 
-
-
-
-		
 		//Contrutor passa 2 paramentros
-		public function __construct($domain, $type=NULL){
-			echo $domain, $type;
+		public function __construct($domain, $type){
 			$this->domain = $domain;
 			$this->type = $type;
 		}
@@ -27,7 +21,7 @@
 			//WoW FUNCIONA!!!
 
 			$remote_file = "/etc/bind/named.conf.local";			#way arq a ser copiado
-			$local_file = "/home/vagrant/named.conf.local.cpy"; 	#way arq copiado
+			$local_file = "/tmp/named.conf.local.cpy"; 				#way arq copiado
 
 			// Copiando arquivo do server remote
 			if(!ssh2_scp_recv($conection, $remote_file, $local_file)){
@@ -55,7 +49,7 @@
 		public function del($conection, $domain_dado){
 
 			$remote_file = "/etc/bind/named.conf.local";			#way arq a ser copiado
-			$local_file = "/home/vagrant/named.conf.local.cpy"; 	#way arq copiado
+			$local_file = "/tmp/named.conf.local.cpy"; 	#way arq copiado
 
 			// Copiando arquivo do server remote
 			if(!ssh2_scp_recv($conection, $remote_file, $local_file)){
@@ -68,7 +62,7 @@
 
 		public function getZonas(){
 			//$remote_file = "/etc/bind/named.conf.local";	#way arq a ser copiado
-			$local_file = "/home/vagrant/named.conf.local.cpy"; 	#way arq copiado
+			$local_file = "/tmp/named.conf.local.cpy"; 	#way arq copiado
 
 			// Copiando arquivo do server remote
 			//if(!ssh2_scp_recv($conection, $remote_file, $local_file)){
@@ -91,7 +85,7 @@
 		public function pesquisaZona($conection, $domain){
 
 			$remote_file = "/etc/bind/named.conf.local";			#way arq a ser copiado
-			$local_file = "/home/vagrant/named.conf.local.cpy"; 	#way arq copiado
+			$local_file = "/tmp/named.conf.local.cpy"; 	#way arq copiado
 
 			// Copiando arquivo do server remote
 			if(!ssh2_scp_recv($conection, $remote_file, $local_file)){
@@ -127,7 +121,7 @@
 		public function pesquisaNaZona($conection, $domain, $host){
 
 			$remote_file = "/etc/bind/db.$domain";
-			$local_file = "/home/vagrant/db.$domain.cpy";
+			$local_file = "/tmp/db.$domain.cpy";
 
 			//echo "variavel file_remote = $remote_file";
 

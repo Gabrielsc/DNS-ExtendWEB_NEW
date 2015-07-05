@@ -38,6 +38,16 @@
 				</div>
                 <form action="login-validar.php" method="post" class="form-horizontal">
                 <div class="form-body pal">
+
+                    <div class="form-group">
+                        <label for="inputPassword" class="col-md-3 control-label">
+                            IP Servidor</label>
+                        <div class="col-md-9">
+                            <div class="input-icon right">
+                                <i class="fa fa-lock"></i>
+                                <input id="inputIp" type="text" class="form-control" name="ipserver" /></div>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="inputName" class="col-md-3 control-label">Name</label>
                         <div class="col-md-9">
@@ -56,24 +66,12 @@
                             <span class="help-block mbn"><a href="#"><small>Forgot password?</small> </a></span>
                         </div>
                     </div>
-                    <!--
-                    <div class="form-group mbn">
-                        <div class="col-md-offset-3 col-md-6">
-                            <div class="checkbox">
-                                <label>
-                                    <input tabindex="5" type="checkbox" />
-                                    &nbsp; Keep me logged in
-                                </label></div>
-                        </div>
-                    </div>
-                    -->
+                    
                     <div class="col-md-offset-3 col-md-6">
-                            <!--<a href="#" class="btn btn-primary">Register</a>
-                            &nbsp;&nbsp;-->
-                            <button type="submit" class="btn btn-primary">
-                                Login
-                            </button>
-                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            Login
+                        </button>
+                    </div>
                 </div>
                 <div class="form-actions pal">
                     <div class="form-group mbn">
