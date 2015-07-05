@@ -58,32 +58,48 @@
 
 		}
 
-		public function getZonas(){
-			//$remote_file = "/etc/bind/named.conf.local";	#way arq a ser copiado
-			$local_file = "/tmp/named.conf.local.cpy"; 	#way arq copiado
+		//OK!
+		public function getDadosZona($conection, $domain){
+			// Retornar uma matriz em que cada linha representa uma linha
+			// do arquivo de dados da zona, cada indice dessa linha contem os dados da linha...
+			// Ex.:
+			//Array ( [0] => Array ( [0] => @ [1] => IN [2] => NS [3] => localhost. ) 
+			//        [1] => Array ( [0] => @ [1] => IN [2] => A [3] => 127.0.0.1 ) 
+			//        [2] => Array ( [0] => @ [1] => IN [2] => AAAA [3] => ::1 ) 
+			//		  [3] => Array ( [0] => ) ) 
+
+			$remote_file = "/etc/bind/db.$domain";
+			$local_file = "/tmp/db.$domain.cpy";
 
 			// Copiando arquivo do server remote
-			//if(!ssh2_scp_recv($conection, $remote_file, $local_file)){
-			//	return false;
-			//}
-
-			$file = file_get_contents($local_file);
-
-			$convert = explode("\n", $file);
-			for ($i=10;$i<count($convert);$i++) {
-				//ler linha a linha e quebra
-				// o nl2br eh para reconhecer o \n
-			    echo nl2br("$convert[$i] \n"); 
+			if(!ssh2_scp_recv($conection, $remote_file, $local_file)){
+				return false;
 			}
-			return true;
+
+			// Transforma o arquivo na string e guarda...
+			$file = file_get_contents($local_file);
+			// Quebra a string em linha guardando num array, 
+			// onde cada indice eh uma linha... 
+			$convert = explode("\n", $file);
+
+			$array = array(); //array para guardar dados resgatados..
+			for ($i=8, $k=0; $i<count($convert); $i++, $k++) {
+				// i -> var represnt linha atual do arq...
+				// k -> var representa indice no array q ira retornar...inicia com 0
+				$array[$k] = explode("	", $convert[$i]);
+			}
+
+			return $array;
 		}
+
+
 
 		// Pesquisa zona pelo seu domain(que deve ser passado como parametro)
 		// retornar array com dados da zona
 		public function pesquisaZona($conection, $domain){
 
-			$remote_file = "/etc/bind/named.conf.local";			#way arq a ser copiado
-			$local_file = "/tmp/named.conf.local.cpy"; 	#way arq copiado
+			$remote_file = "/etc/bind/named.conf.local";	#way arq a ser copiado
+			$local_file = "/tmp/named.conf.local.cpy"; 		#way arq copiado
 
 			// Copiando arquivo do server remote
 			if(!ssh2_scp_recv($conection, $remote_file, $local_file)){

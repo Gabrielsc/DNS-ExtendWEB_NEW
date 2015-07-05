@@ -11,6 +11,7 @@
         $retorno = $objeto->add($connect_ssh);
         if($retorno){ //Executa se Adicionou com sucesso...
 
+            //Scripts abaixo mostram popup dizendo sucesso ou falha para adicionar Zona
 ?>          <script type="text/javascript">
                 alert(" <?php echo 'Zona adicionada com sucesso!! '; ?> ");
             </script>
@@ -24,7 +25,6 @@
         }
     } 
 ?>
-
 
 
 <div id="page-wrapper">
@@ -91,13 +91,6 @@
                                     </select>
                                 </div>
 
-                                <br>
-                                <!-- Begin Select File -->
-                                <div class="form-group">
-                                    <label for="inputName" class="col-md-3 control-label">Selecione arquivo</label>
-
-                                    <input id="inputIncludeFile" type="file" placeholder="Inlcude some file"/>
-                                </div>
                                 <!-- End Select File -->
 
                                 <br>
@@ -105,26 +98,11 @@
 
                             </div>
 
-                            <div class="col-lg-6">
-                                <h3>Advanced Setting</h3><br>
-                                <div class="form-group">
-                                    <input name="inputIp" type="text" placeholder="IP master or slave" class="form-control" size="2"/>
-                                </div>
-
-                                <div class="form-group mbn">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input tabindex="5" type="checkbox" />&nbsp; Allow-traffer
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
 
                             </form>
 
                         </div><br>
-
-                        
+                     
                         
 
                     </div>
@@ -139,8 +117,7 @@
 
                                 <h3>Pesquisar:</h3><br>
                                 <div class="col-lg-6">
-                                    <input name="domainPesquisar" type="text" placeholder="Nome" class="form-control"/>
-                                    <input name="host" type="text" placeholder="Host" class="form-control"/>
+                                    <input name="domainPesquisar" type="text" placeholder="Domain" class="form-control"/>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
@@ -149,9 +126,8 @@
                                         <div class="col-md-9">
                                             <div class="input-icon right">
                                                 <select class="form-control" name="type">
-                                                    <option value="a">A</option>
-                                                    <option value="cname">CNAME</option>
-                                                    <option value="ns">NS</option>
+                                                    <option value="master">Master</option>
+                                                    <option value="slave">Slave</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -163,19 +139,24 @@
 
                                 </form>
 
-                                
-                                <br><br>
-
-                                
+                                <br><br>                             
 
                                 <?php
+
+                                    // Inicio codigo para Pesquisar Zona
 
                                     if(isset($_POST['pesquisar'])){
                                         $domain = $_POST['domainPesquisar'];
                                         $type = $_POST['type']; //nao utilizando no momento..
+
+                                        //Criando objeto Zona, com "domain" e "type" passado
                                         $obj_zona_find = new Zona($domain, $type);
+
+                                        //Chama metodo pesquisaZona do objeto e retorna um array com os
+                                        // dados da Zona como "file" e "type" para jogar numa table
                                         $array_pesquisa = $obj_zona_find->pesquisaZona($connect_ssh, $domain);
-                                        if(!$array_pesquisa){
+                                        if(!$array_pesquisa){ 
+                                            //Se retornou false...
                                             echo "Nada encontrado !!";
                                         }else{
                                 ?>
@@ -198,6 +179,68 @@
                                                 </tr>
                                             </table>
 
+                                            <?php
+                                                // Recebe um array
+                                                $dados_zona = $obj_zona_find->getDadosZona($connect_ssh, $domain);
+
+                                                if (!$dados_zona) {
+                                                    echo "Não encontrado arquivo de dados do dominio informado!! ";
+                                                }else{
+                                                    print_r($dados_zona);
+                                            ?>
+                                                    <!-- Table mostrando todos os dados da Zona-->
+                                                    <br>
+                                                    <h3>Dados da zona direta:</h3><br>
+
+                                                    <table class="table table-hover table-bordered"> 
+                                                        <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Nome</th>
+                                                            <th>TTL</th>
+                                                            <th>Class</th>
+                                                            <th>Editar</th>
+                                                            <th>Excluir</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                        
+                                                        <?php // Laço mostrando dados do array retornado...
+                                                                for ($i=0; $i < count($dados_zona); $i++) {     
+                                                                // Laco constroi linhas da tabela em html...
+                                                        ?>
+                                                                    <tr>
+
+                                                                    <?php   for ($j=0; $j < 4; $j++) {     //4 -> qtde de dados qm cada linha da matriz
+                                                                                // Laço mostrando dados das linhas...   ?>
+                                                                                <td> <?php echo $dados_zona[$i][$j]; ?> </td>
+                                                                    <?php   } ?>
+                                                                        
+                                                                            <td><a href=""></a><img src="images/conf.png" class="icons"></a></td>
+                                                                            <td><a href=""></a><img src="images/del.png" class="icons"></a></td>
+                                                                    </tr>
+                                                        <?php   } ?>
+                                                        
+                                                      
+                                                                                                       
+                                                        </tbody>
+                                                    </table>
+
+
+                                            <?php
+
+                                                }
+                                                
+
+                                                // Exemplo de array, matriz
+                                                //$array = array(0 => "jp", 1 => "sp", 2 => array(0 => "saopaulo", 1 => "joaopessoa"));
+                                                //echo $array[2][0];
+                                                //print_r($array);
+
+                                            ?>
+
+
                                 <?php
                                         }
                                     }
@@ -209,142 +252,13 @@
 
 
 
-                                <!-- Table mostrando todos os dados -->
-                                <br><br>
-                                <h3>Dados de zonas diretas:</h3><br>
-
-                                <!--<table class="table table-hover table-bordered"> -->
-                                <table class="table table-hover table-bordered"> 
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Nome</th>
-                                        <th>TTL</th>
-                                        <th>Class</th>
-                                        <th>Type</th>
-                                        <th class="colunas">Registro</th>
-                                        <th>Editar</th>
-                                        <th>Excluir</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td class="nome">asa.edu.br</td>
-                                        <td class="ttl">3600</td>
-                                        <td class="classe">IN</td>
-                                        <td class="type">A</td>
-                                        <td class="registro">192.168.0.1</td>
-                                        <td><a href=""></a><img src="images/conf.png" class="icons"></a></td>
-                                        <td><a href=""></a><img src="images/del.png" class="icons"></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td class="nome">asa.edu.br</td>
-                                        <td class="ttl">3600</td>
-                                        <td class="classe">IN</td>
-                                        <td class="type">A</td>
-                                        <td class="registro">192.168.0.2</td>
-                                        <td><a href=""></a><img src="images/conf.png" class="icons"></a></td>
-                                        <td><a href=""></a><img src="images/del.png" class="icons"></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td class="nome">dominio.com.br</td>
-                                        <td class="ttl">3600</td>
-                                        <td class="classe">IN</td>
-                                        <td class="type">NS</td>
-                                        <td class="registro">ns1.dominio.com.br</td>
-                                        <td><a href=""></a><img src="images/conf.png" class="icons"></a></td>
-                                        <td><a href=""></a><img src="images/del.png" class="icons"></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td class="nome">dominio.com.br</td>
-                                        <td class="ttl">3600</td>
-                                        <td class="classe">IN</td>
-                                        <td class="type">NS</td>
-                                        <td class="registro">ns2.dominio.com.br</td>
-                                        <td><a href=""></a><img src="images/conf.png" class="icons"></a></td>
-                                        <td><a href=""></a><img src="images/del.png" class="icons"></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td class="nome">server1</td>
-                                        <td class="ttl">3600</td>
-                                        <td class="classe">IN</td>
-                                        <td class="type">CNAME</td>
-                                        <td class="registro">server.com.br</td>
-                                        <td><a href=""></a><img src="images/conf.png" class="icons"></a></td>
-                                        <td><a href=""></a><img src="images/del.png" class="icons"></a></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                
                                 
                             </div>
                         </div>
                     </div>
                     <!-- END -->
 
-                    <!-- ABA VISUALIZAR DO CONTEUDO -->                    
-                    <div id="label-badge-tab" class="tab-pane fade">
-                        <div class="row">
-                            <div class="panel panel-grey">
-                                <div class="panel-heading">ContextualColumn</div>
-                                <div class="panel-body">
-                                    <table class="table table-hover table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Column</th>
-                                            <th>Column</th>
-                                            <th>Column</th>
-                                            <th>Column</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td class="active">active</td>
-                                            <td class="success">success</td>
-                                            <td class="warning">warning</td>
-                                            <td class="danger">danger</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td class="active">active</td>
-                                            <td class="success">success</td>
-                                            <td class="warning">warning</td>
-                                            <td class="danger">danger</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td class="active">active</td>
-                                            <td class="success">success</td>
-                                            <td class="warning">warning</td>
-                                            <td class="danger">danger</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td class="active">active</td>
-                                            <td class="success">success</td>
-                                            <td class="warning">warning</td>
-                                            <td class="danger">danger</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td class="active">active</td>
-                                            <td class="success">success</td>
-                                            <td class="warning">warning</td>
-                                            <td class="danger">danger</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END -->
                     </div>
                     </div>
                 </div>
