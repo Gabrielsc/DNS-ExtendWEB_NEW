@@ -1,13 +1,5 @@
 <?php
-    // Importando codigos PHP!!
-    include 'functions.php';
-    include "ZonaClass.php";
-
-    /////////////////////////////////////////////////////////////
-    // ABRI CONEXAO COM SERVIDOR DNS !!!!
-    $connect_ssh = ssh2_connect('192.168.0.109', 22);
-    ssh2_auth_password($connect_ssh, "root", "adminuser");
-    /////////////////////////////////////////////////////////////
+    //$connect_ssh
     
 ?>
 
@@ -32,66 +24,19 @@
     <div class="page-content">
 
 
-        
-        
-        <h3>Adicionar Domain</h3><br>
+            
         <form action="" method="post">
-
-            <label>Dominio: </label>
-            <input type="text" name="domain">
-            <label>Type: </label>
-            <input type="text" name="type">
-            <input type="submit" name="enviar" value="Enviar">
-            <br><br>
-            
-            <?php // ADDICIONA ZONA, COM DADOS PASSADOS....
-
-                if(isset($_POST['enviar'])){
-                    $objeto = new Zona($_POST['domain'], $_POST['type']);
-                    $returno = $objeto->add($connect_ssh);
-                    if($returno){
-                        echo "Tudo certo!! :)";
-                    }else{
-                        echo "Algo deu errado!! :(";
-                    }
-                    $objeto->getZonas();
-                }
-
-            ?>
-            
+            <label>Dominio</label>
+            <input name="dominio" type="text" placeholder="empresa.com.br">
+            <button type="submit" class="btn btn-primary" name="inverter">Search</button>
         </form>
 
-
-
-
-        <h3>Write file</h3><br>
-        <form action="" method="post">
-
-            <label>Path file: </label>
-            <input type="text" name="way3">
-            <label>String: </label>
-            <input type="text" name="string">
-            <input type="submit" name="enviar" value="Enviar">
-            <br><br>
-
-            <?php
-
-                if(isset($_POST['enviar'])){
-
-                    //escrevendo
-                    $way3 = $_POST['way3'];
-                    $string = $_POST['string'];
-                    file_put_contents($way3, "$string \n", FILE_APPEND);
-
-                    //lendo
-                    $data = file_get_contents($way3);
-                    echo $data;
-                }
-
-                    
-            ?>
-
-        </form>
+        <?php
+            $dominio = $_POST['dominio'];
+            if(isset($dominio)){
+                echo dominioInvertido($dominio);
+            }
+        ?>
         
         
     </div>

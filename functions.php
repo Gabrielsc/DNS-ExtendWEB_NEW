@@ -25,6 +25,16 @@
 		}
 	}
 
+	function dominioInvertido($dominio){
+		//Recebe: empresa.com.br
+		//Retorna: br.com.empresa
+
+		$array = explode(".", $dominio);
+        $array_reverse = array_reverse($array);
+        $juntado = implode(".", $array_reverse);
+        return $juntado;
+	}
+
 
 
 	function del_zona($domain){

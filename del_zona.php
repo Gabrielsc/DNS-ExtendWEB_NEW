@@ -15,7 +15,7 @@
     // Iniciando Deletagem das linha... //
 
 	$remote_file = "/etc/bind/named.conf.local";			//way arq a ser copiado
-	$local_file = "/tmp/named.conf.local.cpy"; 				//way arq copiado
+	$local_file = "/tmp/named.conf.local.cpy";				//way arq copiado
 	$local_file_modif = "/tmp/named.conf.local.cpy.alt";	//wau arq alterado
 
 	// Copiando arquivo do server remote e testando se houver falha...returna false

@@ -46,18 +46,6 @@
 		}
 
 
-		public function del($conection, $domain_dado){
-
-			$remote_file = "/etc/bind/named.conf.local";			#way arq a ser copiado
-			$local_file = "/tmp/named.conf.local.cpy"; 	#way arq copiado
-
-			// Copiando arquivo do server remote
-			if(!ssh2_scp_recv($conection, $remote_file, $local_file)){
-				return false;
-			}
-
-		}
-
 		//Registros de Recursos Dominio - Hosts cadastrados no dominio
 		public function getRRDominio($conection, $domain){
 			// Retornar uma matriz em que cada linha representa uma linha
