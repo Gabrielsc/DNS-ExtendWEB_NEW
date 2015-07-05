@@ -56,8 +56,6 @@
 				return false;
 			}
 
-
-
 		}
 
 		public function getZonas(){
@@ -93,23 +91,27 @@
 			}
 			
 			$file = file_get_contents($local_file);
-
 			$convert = explode("\n", $file);
+			$encontrado = false;
 
 			for ($i=0; $i < count($convert); $i++) {
 
 				if(strstr($convert[$i], $domain)){
-					echo "Domain: ".$convert[$i]."<br>";
-					echo "Type: ".$convert[$i+1]."<br>";
-					echo "File: ".$convert[$i+2]."<br><br>";
+					//echo "Domain: ".$convert[$i]."<br>";
+					//echo "Type: ".$convert[$i+1]."<br>";
+					//echo "File: ".$convert[$i+2]."<br><br>";
 					
 					$type = explode(" ", $convert[$i+1]);
 					$file = explode(" ", $convert[$i+2]);
+					$encontrado = true;
 					break;
+
 				}
 			}
 
-			//echo $type[0]." e ".$type[1];
+			if(!$encontrado){
+				return false;
+			}
 
 			$array = array('0' => $type[1], '1' => $file[1]);
 

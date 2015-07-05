@@ -173,10 +173,10 @@
                                     if(isset($_POST['pesquisar'])){
                                         $domain = $_POST['domainPesquisar'];
                                         $type = $_POST['type']; //nao utilizando no momento..
-                                        $objeto = new Zona($domain, $type);
-                                        $array_pesquisa = $objeto->pesquisaZona($connect_ssh, $domain);
+                                        $obj_zona_find = new Zona($domain, $type);
+                                        $array_pesquisa = $obj_zona_find->pesquisaZona($connect_ssh, $domain);
                                         if(!$array_pesquisa){
-                                            echo "Algo errado :( !!";
+                                            echo "Nada encontrado !!";
                                         }else{
                                 ?>
 
@@ -190,11 +190,11 @@
                                                 <tr>
                                                     
                                                     <?php for($i=0; $i < count($array_pesquisa); $i++){   ?>      
-                                                            <td class="type"> <?php  echo $array_pesquisa[$i];  ?>  </td>
+                                                            <td> <?php  echo $array_pesquisa[$i];  ?>  </td>
                                                     <?php } ?>
 
-                                                    <td><a href=""></a><img src="images/conf.png" class="icons"></a></td>
-                                                    <td><a href=""></a><img src="images/del.png" class="icons"></a></td>
+                                                    <td><a href=""><img src="images/conf.png" class="icons"></a></td>
+                                                    <td><a href="del_zona.php?domain=<?php echo $domain; ?>"><img src="images/del.png" class="icons"></a></td>
                                                 </tr>
                                             </table>
 

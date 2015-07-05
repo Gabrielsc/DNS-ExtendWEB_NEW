@@ -25,6 +25,36 @@
 		}
 	}
 
+
+
+	function del_zona($domain){
+
+		$remote_file = "/etc/bind/named.conf.local";			//way arq a ser copiado
+		$local_file = "/tmp/named.conf.local.cpy"; 				//way arq copiado
+		$local_file_modif = "/tmp/named.conf.local.cpy.alt";	//wau arq alterado
+
+		// Copiando arquivo do server remote
+		if(!ssh2_scp_recv($_SESSION['connection'], $remote_file, $local_file)){
+			return false;
+		}
+
+		//Abrir file
+		$file_original = fopen($local_file, 'r');		//abri arq para leitura
+		$file_alterado = fopen($local_file_modif, 'w');	//cria um arq zerado
+
+		for ($i=0;;$i++) {
+			$linha = fgets($file_original);
+			if ($linha==null) break;
+			echo $linha;
+		}
+
+		//fechando arquivos
+		fclose($file_original);
+		fclose($file_alterado);
+	}
+
+
+
 	// Abri conexao com outra VM e executa um comando pelo SSH
 	//$home = "/home/vagrant";
     //$connect_ssh = ssh2_connect('192.168.0.109', 22);
