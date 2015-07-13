@@ -110,6 +110,8 @@
                     </i><span class="menu-title">Zonas reversas</span></a>
                     </li>
 
+                    <!--
+
                     <li><a href="index.php?page=dominio"><i class="fa fa-th-list fa-fw">
                         <div class="icon-bg bg-blue"></div>
                     </i><span class="menu-title">Dominio</span></a>
@@ -120,10 +122,14 @@
                     </i><span class="menu-title">Analisador</span></a>
                     </li>
 
-                    <li><a href=""><i class="fa fa-database fa-fw">
+                    -->
+
+                    <li><a href="index.php?page=ports"><i class="fa fa-database fa-fw">
                         <div class="icon-bg bg-red"></div>
-                    </i><span class="menu-title">Editar</span></a>
+                    </i><span class="menu-title">Ports</span></a>
                     </li>
+
+
 
                     <li><a href="index.php?page=testes"><i class="fa fa-database fa-fw">
                         <div class="icon-bg bg-red"></div>

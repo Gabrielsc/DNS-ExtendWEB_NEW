@@ -23,9 +23,7 @@
         <div id="tab-general">
             <div id="sum_box" class="row mbl">
                 <div class="col-sm-6 col-md-3">
-                    <?php
-                        echo "";
-                    ?>
+
                 </div>
             </div>
         </div>

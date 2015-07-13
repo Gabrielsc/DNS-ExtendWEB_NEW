@@ -25,6 +25,8 @@
     <link type="text/css" rel="stylesheet" href="styles/jquery.news-ticker.css">
 
 	<link rel="stylesheet" type="text/css" href="styles/my_style.css">
+
+    
 </head>
 <body class="page-login">
 	<div class="form-login">
@@ -41,19 +43,20 @@
 
                     <div class="form-group">
                         <label for="inputPassword" class="col-md-3 control-label">
-                            IP Servidor</label>
+                            IP Servidor</label>w
                         <div class="col-md-9">
                             <div class="input-icon right">
                                 <i class="fa fa-lock"></i>
                                 <input id="inputIp" type="text" class="form-control" name="ipserver" /></div>
                         </div>
                     </div>
+
                     <div class="form-group">
-                        <label for="inputName" class="col-md-3 control-label">Name</label>
+                        <label for="inputLogin" class="col-md-3 control-label">Login</label>
                         <div class="col-md-9">
                             <div class="input-icon right">
                                 <i class="fa fa-user"></i>
-                                <input id="inputName" type="text" class="form-control" name="login" /></div>
+                                <input id="inputLogin" type="text" class="form-control" name="login" /></div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -71,7 +74,9 @@
                         <button type="submit" class="btn btn-primary">
                             Login
                         </button>
+                        <a href="cadastrar.php">Cadastrar</a>
                     </div>
+                    
                 </div>
                 <div class="form-actions pal">
                     <div class="form-group mbn">

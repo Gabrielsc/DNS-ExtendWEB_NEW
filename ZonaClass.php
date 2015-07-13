@@ -29,6 +29,16 @@
 				return false;
 			}
 
+			ssh2_exec($conection, "echo 'zone $this->domain {' >> $remote_file");
+			ssh2_exec($conection, "echo '	type $this->type;' >> $remote_file");
+			ssh2_exec($conection, "echo '	file /etc/bind/db.$this->domain;' >> $remote_file");
+			ssh2_exec($conection, "echo '};' >> $remote_file");
+
+			//shell_exec("echo zone $this->domain { >> $local_file");
+			//shell_exec("echo file /etc/bind/db.$this->domain; >> $local_file");
+			//shell_exec("echo }; >> $local_file");
+
+			/*
 			/////////////////////////////////////////////
 			// Abrindo, escrevendo e fechando arquivo...
 			$file = fopen($local_file, 'a');
@@ -39,10 +49,12 @@
 			fwrite($file, "};\n");
 			fclose($file);
 			/////////////////////////////////////////////
+			*/
 
 			// Copiando arquivo alterado para server remote
 			// Retornado false se nao copiou
-			return ssh2_scp_send($conection, $local_file, $remote_file);
+			//return ssh2_scp_send($conection, $local_file, $remote_file);
+			return true;
 		}
 
 
@@ -122,36 +134,6 @@
 			return $array;
 		}
 
-		// Pesquisa no arquivo da zona que se deseja verificar os hosts cadastrados
-		// retorna um array de um dado hosts, com info. do mesmo como type,...
-		public function pesquisaNaZona($conection, $domain, $host){
-
-			$remote_file = "/etc/bind/db.$domain";
-			$local_file = "/tmp/db.$domain.cpy";
-
-			//echo "variavel file_remote = $remote_file";
-
-			// Copiando arquivo do server remote
-			if(!ssh2_scp_recv($conection, $remote_file, $local_file)){
-				echo "Erro ao copiar...";
-				return false;
-			}
-			
-			// $file ira guardar o arquivo de texto como uma string
-			$file = file_get_contents($local_file);
-
-			// explode() irá fazer de $file um vetor que cada linha sera um indice
-			$convert = explode("\n", $file);
-			for ($i=8; $i < count($convert); $i++) {
-
-				if(strstr($convert[$i], $host)){
-					//colando no array cada campo da linha que contem a string $host
-					$array = explode("	", $convert[$i]);
-				}
-			}
-
-			return $array;
-		}
 
 		public function toString(){
 			return "domain:$this->domain; type:$this->type";
