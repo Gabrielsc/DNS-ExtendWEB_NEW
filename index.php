@@ -9,7 +9,7 @@
     
     // Sessão aberta e utiliza pela var.:  $_SESSION['connection']
     $connect_ssh = ssh2_connect($_SESSION['ipserver'], 22);
-    if(ssh2_auth_password($connect_ssh, $_SESSION['login'], $_SESSION['senha'])){
+    if(ssh2_auth_password($connect_ssh, $_SESSION['login'], $_SESSION['password'])){
         $_SESSION['connection'] = $connect_ssh;
     }
     
@@ -148,7 +148,6 @@
             <?php 
                 include($page.".php"); 
             ?>
-
             <!--END CONTEUDO -->
 
 

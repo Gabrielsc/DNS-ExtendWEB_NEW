@@ -37,7 +37,7 @@
 					//$_SESSION['name'] = $obj->name;
 					//$_SESSION['email'] = $obj->email;
 					$_SESSION['login'] = $obj->login;
-					$_SESSION['password'] = $obj->password;
+					$_SESSION['password'] = $password;
 					$_SESSION['logado'] = true;
 					//Guardando ip para usar na conexão ssh na pagina index.php
 					$_SESSION['ipserver'] = $ipserver;

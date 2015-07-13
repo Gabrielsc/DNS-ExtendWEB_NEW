@@ -22,12 +22,30 @@
     <div class="page-content">
         <div id="tab-general">
             <div id="sum_box" class="row mbl">
-                <div class="col-sm-6 col-md-3">
-
+                <div class="col-lg-12">
+                    <p>Ferramenta desenvolvida como projeto para obtenção de nota na disciplina de Desenvolvimento Web no curso de Redes de Computadores - IFPB. Desenvolvido pelos alunos Kaio Moura
+e Gabriel Cavalcante.</p>
+                    <p>O objetivo é ser uma ferramenta web para configurar, controlar, testar e manter um servidor DNS na rede.</p>
                 </div>
+                    <div class="col-lg-12">
+                        <p><b>Funcionalidades:</b></p>
+                        <ul>
+                            <b>Zonas:</b>
+                            <li>Adicionar, atualizar, listar e remover zonas;</li>
+                            <li>Configuracao de zona reversa;</li>
+                            <li>Importar e exportar zonas;</li>
+                            <b>Dominios:</b>
+                            <li>Adicionar, remover, listar dominio;</li>
+                            <li>Adicionar, remover e atualizar email;</li>
+                            <li>Testar desempenho do servidor DNS;</li>
+                            <li>Alterar arquivos de configuracão;</li>
+                        </ul>
+                    </div>
             </div>
         </div>
     </div>
+
+
     <!--END CONTENT-->
 
     

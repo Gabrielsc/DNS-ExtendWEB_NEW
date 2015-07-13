@@ -43,7 +43,7 @@
 
                     <div class="form-group">
                         <label for="inputPassword" class="col-md-3 control-label">
-                            IP Servidor</label>w
+                            IP Servidor</label>
                         <div class="col-md-9">
                             <div class="input-icon right">
                                 <i class="fa fa-lock"></i>
@@ -87,6 +87,11 @@
             </div>
         </div>
 	</div>
-	
+    <br>
+    <br>
+    <br>
+	<footer>
+        DNS-ExtendsWEB - Desenvolvido por Gabriel Cavalcante e Kaio Moura.
+    </footer>
 </body>
 </html>
